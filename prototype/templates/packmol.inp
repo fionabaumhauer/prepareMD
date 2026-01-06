@@ -5,11 +5,11 @@ seed 28446
 
 structure /scratch/fb590/co2n2/electric/prepareMD/prototype/templates/N2.xyz
    number NUMBER_N2
-   inside box 2.0 2.0 2.0 28.0 28.0 28.0
+   inside box 2.0 2.0 2.0 88.0 88.0 28.0
 end structure
 
 structure /scratch/fb590/co2n2/electric/prepareMD/prototype/templates/CO2.xyz
    number  NUMBER_CO2
-   inside box 2.0 2.0 2.0 28.0 28.0 28.0
+   inside box 2.0 2.0 2.0 88.0 88.0 28.0
 end structure
 
