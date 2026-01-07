@@ -1,3 +1,7 @@
+"""
+This script takes the coordinates from the temp.xyz file created by packmol and puts them in a lammps.data file
+"""
+
 # atom types & charges 
 atom_info = {
     "C": (1, 0.70),

@@ -29,3 +29,13 @@ python /scratch/fb590/co2n2/electric/prepareMD/prototype/scripts/convert_xyz_to_
 
 # remove temp.xyz
 rm temp.xyz
+
+# make a copy of input.yaml where all LJ walls (if there are any) are zeroed by setting all epsilons to 0.0
+sed \
+    -e 's/^\(\s*epsilon_lo:\s*\).*/\10.0/' \
+    -e 's/^\(\s*epsilon_hi:\s*\).*/\10.0/' \
+    input.yaml > input_nowalls.yaml
+
+# create txt files for each species containing binned forces calculated from the external potential in input_nowalls.yaml
+python /scratch/fb590/co2n2/electric/prepareMD/prototype/scripts/make_forces_file.py
+
