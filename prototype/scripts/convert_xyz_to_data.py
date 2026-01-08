@@ -12,7 +12,7 @@ atom_info = {
 
 xyz_file = "temp.xyz"
 
-# Read XYZ
+# Read XYZ and generate Atoms section
 atoms = []
 X_count = 0
 C_count = 0
@@ -42,13 +42,28 @@ with open(xyz_file) as f:
         # every three lines increase molecule id
         if (i + 1) % 3 == 0:
             molecule_id += 1
-
-
-total_atoms = X_count * 3 + C_count * 3
-total_bonds = X_count * 2 + C_count * 2
-total_angles = X_count + C_count
-
+            
 atoms_str = "Atoms # full\n\n" + "\n".join(" ".join(map(str, a)) for a in atoms)
+
+# generate Bonds section
+bonds = []
+bond_id = 1
+
+for mol_start in range(0, len(atoms), 3):
+    # atoms in this molecule
+    a1, a2, a3 = atoms[mol_start:mol_start+3]
+    # create bonds: a1-a2, a1-a3
+    bonds.append((bond_id, 1, a1[0], a2[0]))
+    bond_id += 1
+    bonds.append((bond_id, 1, a1[0], a3[0]))
+    bond_id += 1
+
+bonds_str = "Bonds\n\n" + "\n".join(" ".join(map(str, b)) for b in bonds)
+
+# make data file
+
+total_atoms = len(atoms)
+total_bonds = len(bonds)
 
 data_contents = f"""\
 LAMMPS data file for n2/co2
@@ -57,8 +72,6 @@ LAMMPS data file for n2/co2
 4 atom types
 {total_bonds} bonds
 2 bond types
-{total_angles} angles
-2 angle types
 
 0 90 xlo xhi
 0 90 ylo yhi
@@ -78,17 +91,9 @@ Pair Coeffs # lj/cut/coul/long
 3 0 0
 4 0.0715394 3.31
 
-Bond Coeffs # harmonic
-
-1 5000 1.16
-2 5000 0.55
-
-Angle Coeffs # harmonic
-
-1 500 180
-2 500 180
-
 {atoms_str}
+
+{bonds_str}
 """
 
 with open("initialMD.data", "w") as f:

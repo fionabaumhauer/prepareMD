@@ -10,13 +10,6 @@ pair_style lj/cut/coul/long ${cutoff}
 kspace_style pppm 1.0e-5
 pair_modify     table 0
 
-bond_style      harmonic
-angle_style     harmonic
-# bond_coeff      1 5000.00 1.160
-# angle_coeff     1 500.0 180.00
-# bond_coeff      2 5000.00 0.55
-# angle_coeff     2 500.0 180.00
-
 read_data       ./initialMD.data
 
 group co2 type 1 2

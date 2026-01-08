@@ -35,7 +35,7 @@ sed \
     input.yaml > input_nowalls.yaml
 
 # create txt files for each species containing binned forces calculated from the external potential in input_nowalls.yaml
-python /scratch/fb590/co2n2/electric/prepareMD/prototype/scripts/make_forces_file.py
+python /scratch/fb590/co2n2/electric/prepareMD/prototype/scripts/make_forces_files.py
 
 # clean up the directory a little
 rm input_nowalls.yaml
