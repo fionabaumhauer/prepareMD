@@ -44,7 +44,7 @@ species_list = ["C", "O", "N", "X"]
 for species in species_list:
     beta, Vext, mu, T = initialize_potentials(config, species)
     xbins = np.array([bin_centers])
-    Vext_values = Vext(xbins) #Vext is a function
+    Vext_values = Vext(xbins) # Vext is a function
     muloc_profile = (Vext_values - mu) * beta
     muloc_profile_in_kcal_per_mol = muloc_profile * const.Boltzmann * T * const.Avogadro / 4184 # keeping all the beta stuff here beause it helps me visualise conversions
 

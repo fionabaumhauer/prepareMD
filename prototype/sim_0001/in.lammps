@@ -12,10 +12,10 @@ pair_modify     table 0
 
 bond_style      harmonic
 angle_style     harmonic
-bond_coeff      1 5000.00 1.160
-angle_coeff     1 500.0 180.00
-bond_coeff      2 5000.00 0.55
-angle_coeff     2 500.0 180.00
+# bond_coeff      1 5000.00 1.160
+# angle_coeff     1 500.0 180.00
+# bond_coeff      2 5000.00 0.55
+# angle_coeff     2 500.0 180.00
 
 read_data       ./initialMD.data
 
@@ -54,7 +54,7 @@ run_style verlet
 
 timestep      0.5 # for equilibration, later set to 1.0
 
-variable      temperature equal __TEMPERATURE__
+variable      temperature equal 269.7457
 variable      timeequil equal  80000
 variable      timerun equal   10000000
 variable      tdamp equal  200.0
