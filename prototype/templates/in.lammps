@@ -69,6 +69,9 @@ fix NVT all rigid/nvt molecule temp ${temperature} ${temperature} ${tdamp}
 
 # --------------------- add external potential  ---------------------
 
+__LJWALL_HIGH__
+__LJWALL_LOW__
+
 variable        z_iter  file ./zbins.txt
 variable        forceO  file ./forceO.txt
 variable        forceX  file ./forceX.txt

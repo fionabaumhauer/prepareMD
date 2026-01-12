@@ -6,7 +6,7 @@ WARNING: Detected non-ASCII characters in input. Will try to continue by replaci
 
 units       real
 dimension   3
-boundary    p p p
+boundary    p p f
 
 atom_style  full
 
@@ -34,8 +34,8 @@ Finding 1-2 1-3 1-4 neighbors ...
      1 = max # of 1-3 neighbors
      1 = max # of 1-4 neighbors
      2 = max # of special neighbors
-  special bonds CPU = 0.000 seconds
-  read_data CPU = 0.011 seconds
+  special bonds CPU = 0.001 seconds
+  read_data CPU = 0.014 seconds
 
 group co2 type 1 2
 171 atoms in group co2
@@ -76,7 +76,7 @@ neigh_modify delay 5 every 1 check yes
 
 run_style verlet
 
-timestep      0.25 # for equilibration, later set to 1.0
+timestep      0.5 # for equilibration, later set to 1.0
 
 variable      temperature equal 269.7457
 variable      timeequil equal  80000
@@ -104,6 +104,9 @@ fix NVT all rigid/nvt molecule temp 269.7457 269.7457 200
 
 
 # --------------------- add external potential  ---------------------
+
+fix wallhi all wall/lj93 zlo 22.16305 0.4858 1 5.0 units box
+fix walllo all wall/lj93 zhi 7.83695 0.4858 1 5.0 units box
 
 variable        z_iter  file ./zbins.txt
 variable        forceO  file ./forceO.txt
@@ -58142,29 +58145,5 @@ Your simulation uses code contributions which should be cited:
 CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
 
 PPPM initialization ...
-  using polynomial approximation for long-range coulomb (src/kspace.cpp:344)
-  G vector (1/distance) = 0.18907276
-  grid = 36 36 16
-  stencil order = 5
-  estimated absolute RMS force accuracy = 0.0029235147
-  estimated relative force accuracy = 8.8040778e-06
-  using double precision FFTW3
-  3d grid and FFT values/proc = 38663 20736
-Generated 0 of 6 mixed pair_coeff terms from geometric mixing rule
-WARNING: Bonds are defined but no bond style is set (src/force.cpp:197)
-WARNING: Likewise 1-2 special neighbor interactions != 1.0 (src/force.cpp:199)
-Neighbor list info ...
-  update: every = 1 steps, delay = 5 steps, check = yes
-  max neighbors/atom: 2000, page size: 100000
-  master list distance cutoff = 17
-  ghost atom cutoff = 17
-  binsize = 8.5, bins = 11 11 4
-  1 neighbor lists, perpetual/occasional/extra = 1 0 0
-  (1) pair lj/cut/coul/long, perpetual
-      attributes: half, newton on
-      pair build: half/bin/newton
-      stencil: half/bin/3d
-      bin: standard
-Per MPI rank memory allocation (min/avg/max) = 12.14 | 12.14 | 12.14 Mbytes
-   Step          Temp          PotEng         KinEng        Enthalpy          Lx           Volume         Press     
-         0   273.52439      533727.27      790.0492       535305.31      90             243000         222.35082    
+ERROR: Cannot use non-periodic boundaries with PPPM (src/KSPACE/pppm.cpp:206)
+Last command: run          ${timeequil}

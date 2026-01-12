@@ -52,8 +52,8 @@ cutoff=$(awk '/^[[:space:]]*C:/ {f=1} f && /cutoff_lo:/ {print $2; exit}' input.
 epsilon=$(awk '/^[[:space:]]*C:/ {f=1} f && /epsilon_lo:/ {print $2; exit}' input.yaml)
 sigma=$(awk '/^[[:space:]]*C:/ {f=1} f && /sigma_lo:/ {print $2; exit}' input.yaml)
 
-wallstr_high="fix wallhi all wall/lj93 zlo ${high} ${epsilon} ${sigma} ${cutoff} units box pbc yes"
-wallstr_low="fix walllo all wall/lj93 zhi ${low} ${epsilon} ${sigma} ${cutoff} units box pbc yes"
+wallstr_high="fix wallhi all wall/lj93 zlo ${high} ${epsilon} ${sigma} ${cutoff} units box"
+wallstr_low="fix walllo all wall/lj93 zhi ${low} ${epsilon} ${sigma} ${cutoff} units box"
 
 # if there are are LJ walls, then insert them into in.lammps. otherwise delete the placeholder
 if [ "$(echo "$epsilon != 0" | bc -l)" -eq 1 ]; then
