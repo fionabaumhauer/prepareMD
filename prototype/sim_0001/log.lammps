@@ -76,7 +76,7 @@ neigh_modify delay 5 every 1 check yes
 
 run_style verlet
 
-timestep      0.5 # for equilibration, later set to 1.0
+timestep      0.25 # for equilibration, later set to 1.0
 
 variable      temperature equal 269.7457
 variable      timeequil equal  80000
@@ -58167,4 +58167,4 @@ Neighbor list info ...
       bin: standard
 Per MPI rank memory allocation (min/avg/max) = 12.14 | 12.14 | 12.14 Mbytes
    Step          Temp          PotEng         KinEng        Enthalpy          Lx           Volume         Press     
-         0   273.52439      533727.27      790.0492       535164.81      90             243000         182.70618    
+         0   273.52439      533727.27      790.0492       535305.31      90             243000         222.35082    
