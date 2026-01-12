@@ -1,3 +1,25 @@
+# assumes that all are the same, i.e. same for both species and same high and low
+
+import scipy.constants as const
+import yaml
+
+yamlfile = "input.yaml"
+
+with open(yamlfile, 'r') as file:
+    config = yaml.safe_load(file)
+
+T = config['T']
+
+epsilon_from_yaml = config['particle_types']['C']['epsilon_lo']
+epsilon_kcal_per_mol = epsilon_from_yaml * const.Boltzmann * T * const.Avogadro / 4184
+
+sigma = config['particle_types']['C']['sigma_lo']
+LJcutoff = config['particle_types']['C']['cutoff_lo']
+low = config['particle_types']['C']['low']
+high = config['particle_types']['C']['high']
+
+
+contentsuptoT = """\
 variable cutoff index 15
 
 units       real
@@ -47,8 +69,15 @@ run_style verlet
 
 timestep      0.5 # for equilibration, later set to 1.0
 
-variable      temperature equal 269.7457
+"""
 
+line_containing_T = f"""\
+variable      temperature equal {T}
+
+"""
+
+
+contents_between_T_and_LJ = """\
 variable      timeequil equal  80000
 variable      timerun equal   10000000
 variable      tdamp equal  200.0
@@ -70,9 +99,15 @@ fix NVT all rigid/nvt molecule temp ${temperature} ${temperature} ${tdamp}
 
 # --------------------- add external potential  ---------------------
 
-fix walllo all wall/lj93 zlo 7.83695 0.2604081366812073 1 5.0 units box pbc yes
-fix wallhi all wall/lj93 zlo 22.16305 0.2604081366812073 1 5.0 units box pbc yes
+"""
 
+LJ_lines = f"""\
+fix walllo all wall/lj93 zlo {low} {epsilon_kcal_per_mol} {sigma} {LJcutoff} units box pbc yes
+fix wallhi all wall/lj93 zlo {high} {epsilon_kcal_per_mol} {sigma} {LJcutoff} units box pbc yes
+
+"""
+
+contents_after_LJ = """\
 variable        z_iter  file ./zbins.txt
 variable        forceO  file ./forceO.txt
 variable        forceX  file ./forceX.txt
@@ -124,3 +159,12 @@ dump 1 all custom 10000 md.lammpstrj id type xu yu zu
 # ------------------------------- run -----------------------------
 
 run          ${timerun}
+"""
+
+if epsilon_from_yaml != 0.0:
+    all_contents = contentsuptoT + line_containing_T + contents_between_T_and_LJ + LJ_lines + contents_after_LJ
+else:
+    all_contents = contentsuptoT + line_containing_T + contents_between_T_and_LJ + contents_after_LJ
+
+with open("in.lammps", "w") as f:
+    f.write(all_contents)    

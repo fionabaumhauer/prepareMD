@@ -41,25 +41,5 @@ python /scratch/fb590/co2n2/electric/prepareMD/prototype/scripts/make_forces_fil
 rm input_nowalls.yaml
 rm temp.xyz
 
-# get T from input.yaml and insert it into in.lammps
-T=$(awk -F: '/^T:/ {gsub(/^[ \t]+/, "", $2); print $2}' input.yaml)
-sed -i "s/__TEMPERATURE__/${T}/g" in.lammps
-
-# get LJ wall parameters from input.yaml (assumes that walls are symmetric)
-low=$(awk '/^[[:space:]]*C:/ {f=1} f && /low:/ {print $2; exit}' input.yaml)
-high=$(awk '/^[[:space:]]*C:/ {f=1} f && /high:/ {print $2; exit}' input.yaml)
-cutoff=$(awk '/^[[:space:]]*C:/ {f=1} f && /cutoff_lo:/ {print $2; exit}' input.yaml)
-epsilon=$(awk '/^[[:space:]]*C:/ {f=1} f && /epsilon_lo:/ {print $2; exit}' input.yaml)
-sigma=$(awk '/^[[:space:]]*C:/ {f=1} f && /sigma_lo:/ {print $2; exit}' input.yaml)
-
-wallstr_high="fix wallhi all wall/lj93 zlo ${high} ${epsilon} ${sigma} ${cutoff} units box pbc yes"
-wallstr_low="fix walllo all wall/lj93 zhi ${low} ${epsilon} ${sigma} ${cutoff} units box pbc yes"
-
-# if there are are LJ walls, then insert them into in.lammps. otherwise delete the placeholder
-if [ "$(echo "$epsilon != 0" | bc -l)" -eq 1 ]; then
-    sed -i "s|__LJWALL_HIGH__|$wallstr_high|" in.lammps
-    sed -i "s|__LJWALL_LOW__|$wallstr_low|" in.lammps
-else
-    sed -i "/__LJWALL_HIGH__/d" in.lammps
-    sed -i "/__LJWALL_LOW__/d" in.lammps
-fi
+# create in.lammps using parameters extracted from input.yaml
+python /scratch/fb590/co2n2/electric/prepareMD/prototype/scripts/write_lammps_input.py
