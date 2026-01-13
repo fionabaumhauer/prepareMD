@@ -1,4 +1,4 @@
-# assumes that all are the same, i.e. same for both species and same high and low
+# assumes that all walls are the same, i.e. same for both species and same high and low
 
 import scipy.constants as const
 import yaml
@@ -103,7 +103,7 @@ fix NVT all rigid/nvt molecule temp ${temperature} ${temperature} ${tdamp}
 
 LJ_lines = f"""\
 fix walllo all wall/lj93 zlo {low} {epsilon_kcal_per_mol} {sigma} {LJcutoff} units box pbc yes
-fix wallhi all wall/lj93 zlo {high} {epsilon_kcal_per_mol} {sigma} {LJcutoff} units box pbc yes
+fix wallhi all wall/lj93 zhi {high} {epsilon_kcal_per_mol} {sigma} {LJcutoff} units box pbc yes
 
 """
 

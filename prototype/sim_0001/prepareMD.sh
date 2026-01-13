@@ -4,9 +4,8 @@
 source /home/fb590/miniconda3/etc/profile.d/conda.sh
 conda activate prepareMD
 
-# copy necessary files
-cp /scratch/fb590/co2n2/electric/prepareMD/prototype/templates/packmol.inp .
-cp /scratch/fb590/co2n2/electric/prepareMD/prototype/templates/in.lammps .
+# create packmol.inp file
+python /scratch/fb590/co2n2/electric/prepareMD/prototype/scripts/write_packmol.py
 
 # get sim_id from directory name
 dir_name=$(basename "$PWD")
@@ -20,7 +19,7 @@ read CO2 N2 < <(awk -v sim="$sim_id" 'BEGIN{FS="\t"} $1==sim {printf "%.0f %.0f"
 CO2_forMD=$(( CO2 * 3 ))
 N2_forMD=$(( N2 * 3 ))
 
-# edit packmol input file and run to output temp.xyz
+# edit packmol input file to include the number of molecules and run to output temp.xyz
 sed -i "s/NUMBER_N2/${N2_forMD}/g" packmol.inp
 sed -i "s/NUMBER_CO2/${CO2_forMD}/g" packmol.inp
 packmol -i packmol.inp
