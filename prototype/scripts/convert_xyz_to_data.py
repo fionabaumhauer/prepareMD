@@ -73,8 +73,8 @@ LAMMPS data file for n2/co2
 {total_bonds} bonds
 2 bond types
 
-0 90 xlo xhi
-0 90 ylo yhi
+0 30 xlo xhi
+0 30 ylo yhi
 0 30 zlo zhi
 
 Masses

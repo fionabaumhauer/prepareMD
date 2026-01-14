@@ -102,8 +102,10 @@ fix NVT all rigid/nvt molecule temp ${temperature} ${temperature} ${tdamp}
 """
 
 LJ_lines = f"""\
-fix walllo all wall/lj93 zlo {low} {epsilon_kcal_per_mol} {sigma} {LJcutoff} units box pbc yes
-fix wallhi all wall/lj93 zhi {high} {epsilon_kcal_per_mol} {sigma} {LJcutoff} units box pbc yes
+fix walllo groupC wall/lj93 zlo {low} {epsilon_kcal_per_mol} {sigma} {LJcutoff} units box pbc yes
+fix wallhi groupC  wall/lj93 zhi {high} {epsilon_kcal_per_mol} {sigma} {LJcutoff} units box pbc yes
+fix walllo groupX  wall/lj93 zlo {low} {epsilon_kcal_per_mol} {sigma} {LJcutoff} units box pbc yes
+fix wallhi groupX wall/lj93 zhi {high} {epsilon_kcal_per_mol} {sigma} {LJcutoff} units box pbc yes
 
 """
 

@@ -13,12 +13,12 @@ low = config['particle_types']['C']['low']
 high = config['particle_types']['C']['high']
 epsilon_from_yaml = config['particle_types']['C']['epsilon_lo']
 if epsilon_from_yaml != 0: 
-    coordinates_line = f"inside box 2.0 2.0 {low + 1} 88.0 88.0 {high - 1}"
+    coordinates_line = f"inside box 2.0 2.0 {low + 2} 28.0 28.0 {high - 2}"
 else:
-    coordinates_line = f"inside box 2.0 2.0 2.0 88.0 88.0 28.0"
+    coordinates_line = f"inside box 2.0 2.0 2.0 28.0 28.0 28.0"
 
 packmol_contents = f"""\
-tolerance 1
+tolerance 2
 output temp.xyz
 filetype xyz
 seed 28446

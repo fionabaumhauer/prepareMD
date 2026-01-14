@@ -13,8 +13,8 @@ particle_types:
     high: 22.16305
     cutoff_lo: 5.0
     cutoff_hi: 5.0
-    epsilon_lo: 0.4858
-    epsilon_hi: 0.4858
+    epsilon_lo: 0.0
+    epsilon_hi: 0.0
     sigma_lo: 1
     sigma_hi: 1
     A1: 0.0
@@ -159,8 +159,8 @@ particle_types:
     high: 22.16305
     cutoff_lo: 5.0
     cutoff_hi: 5.0
-    epsilon_lo: 0.4858
-    epsilon_hi: 0.4858
+    epsilon_lo: 0.0
+    epsilon_hi: 0.0
     sigma_lo: 1
     sigma_hi: 1
     A1: 0.0
