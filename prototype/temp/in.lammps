@@ -71,8 +71,8 @@ fix NVT all rigid/nvt molecule temp ${temperature} ${temperature} ${tdamp}
 # --------------------- add external potential  ---------------------
 
 fix walllo groupC wall/lj93 zlo 7.83695 0.2604081366812073 1 5.0 units box pbc yes
-fix wallhi groupC  wall/lj93 zhi 22.16305 0.2604081366812073 1 5.0 units box pbc yes
-fix walllo groupX  wall/lj93 zlo 7.83695 0.2604081366812073 1 5.0 units box pbc yes
+fix wallhi groupC wall/lj93 zhi 22.16305 0.2604081366812073 1 5.0 units box pbc yes
+fix walllo groupX wall/lj93 zlo 7.83695 0.2604081366812073 1 5.0 units box pbc yes
 fix wallhi groupX wall/lj93 zhi 22.16305 0.2604081366812073 1 5.0 units box pbc yes
 
 variable        z_iter  file ./zbins.txt

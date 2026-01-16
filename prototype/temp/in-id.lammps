@@ -26,16 +26,16 @@ dielectric   1.0
 
 pair_modify shift yes
 
-pair_coeff 1 1 0.053654828567 2.8000
-pair_coeff 2 2 0.156990053954 3.0500
+pair_coeff 1 1 0.0 2.8000
+pair_coeff 2 2 0.0 3.0500
 pair_coeff 3 3 0.0 0.0
-pair_coeff 4 4 0.07153943229  3.31
+pair_coeff 4 4 0.0 3.31
 
-pair_coeff 1 2 0.091778398502 2.9250
+pair_coeff 1 2 0.0 2.9250
 pair_coeff 1 3 0.0 0.0
-pair_coeff 1 4 0.06195511258 3.055
+pair_coeff 1 4 0.0 3.055
 pair_coeff 2 3 0.0 0.0
-pair_coeff 2 4 0.10597631497 3.18
+pair_coeff 2 4 0.0 3.18
 pair_coeff 3 4 0.0 0.0
 
 # --------------------- simulation/thermostat details ---------------------
@@ -71,8 +71,8 @@ fix NVT all rigid/nvt molecule temp ${temperature} ${temperature} ${tdamp}
 # --------------------- add external potential  ---------------------
 
 fix walllo groupC wall/lj93 zlo 7.83695 0.2604081366812073 1 5.0 units box pbc yes
-fix wallhi groupC  wall/lj93 zhi 22.16305 0.2604081366812073 1 5.0 units box pbc yes
-fix walllo groupX  wall/lj93 zlo 7.83695 0.2604081366812073 1 5.0 units box pbc yes
+fix wallhi groupC wall/lj93 zhi 22.16305 0.2604081366812073 1 5.0 units box pbc yes
+fix walllo groupX wall/lj93 zlo 7.83695 0.2604081366812073 1 5.0 units box pbc yes
 fix wallhi groupX wall/lj93 zhi 22.16305 0.2604081366812073 1 5.0 units box pbc yes
 
 variable        z_iter  file ./zbins.txt
